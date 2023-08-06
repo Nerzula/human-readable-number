@@ -44,4 +44,6 @@ module.exports = function toReadable(number) {
 			'eighteen',
 			'nineteen',
 		];
+	let res = '';
+	const str = num.toString();
 };
