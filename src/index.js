@@ -67,4 +67,12 @@ module.exports = function toReadable(number) {
 			(str[1] != '0' ? ' ' + t[parseInt(str[1]) - 1] : '') +
 			(str[2] != '0' ? ' ' + o[parseInt(str[2]) - 1] : '');
 	}
+
+	// Преобразовываем строки в массив
+	let arr = res.split('');
+	// Первое значение массив преобразовываем в верхний регистр
+	arr[0] = arr[0].toUpperCase();
+	// Преобразовываем массив обратно в строку
+	res = arr.join('');
+	return res;
 };
