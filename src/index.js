@@ -1,4 +1,4 @@
-module.exports = function toReadable(number) {
+module.exports = function toReadable(num) {
 	const h = [
 			'one hundred',
 			'two hundred',
@@ -68,11 +68,7 @@ module.exports = function toReadable(number) {
 			(str[2] != '0' ? ' ' + o[parseInt(str[2]) - 1] : '');
 	}
 
-	// Преобразовываем строки в массив
-	let arr = res.split('');
-	// Первое значение массив преобразовываем в верхний регистр
-	arr[0] = arr[0].toUpperCase();
-	// Преобразовываем массив обратно в строку
-	res = arr.join('');
 	return res;
 };
+
+toReadable(949);
