@@ -46,4 +46,6 @@ module.exports = function toReadable(number) {
 		];
 	let res = '';
 	const str = num.toString();
+
+	if (num === 10) return 'Ten';
 };
