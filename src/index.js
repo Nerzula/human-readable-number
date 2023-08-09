@@ -1,39 +1,16 @@
-//module.exports =
-function toReadable(num) {
-	const h = {
-			1: 'one hundred',
-			2: 'two hundred',
-			3: 'three hundred',
-			4: 'four hundred',
-			5: 'five hundred',
-			6: 'six hundred',
-			7: 'seven hundred',
-			8: 'eight hundred',
-			9: 'nine hundred',
-		},
-		t = {
-			10: 'ten',
-			20: 'twenty',
-			30: 'thirty',
-			40: 'forty',
-			50: 'fifty',
-			60: 'sixty',
-			70: 'seventy',
-			80: 'eighty',
-			90: 'ninety',
-		},
-		o = {
-			1: 'one',
-			2: 'two',
-			3: 'three',
-			4: 'four',
-			5: 'five',
-			6: 'six',
-			7: 'seven',
-			8: 'eight',
-			9: 'nine',
-		};
-	p = {
+module.exports = function toReadable(number) {
+	const ones = {
+		1: 'one',
+		2: 'two',
+		3: 'three',
+		4: 'four',
+		5: 'five',
+		6: 'six',
+		7: 'seven',
+		8: 'eight',
+		9: 'nine',
+	};
+	const teens = {
 		11: 'eleven',
 		12: 'twelve',
 		13: 'thirteen',
@@ -44,21 +21,50 @@ function toReadable(num) {
 		18: 'eighteen',
 		19: 'nineteen',
 	};
-	const str = num.toString();
-	if (str.length == 1) res += o[num];
-	if (str.length == 2 && num > 10 && num < 20) return p[num];
-	if (str.length == 2 && num >= 10) return t[num];
-	if (str.length == 3) {
-		let firstNum = str.slice(0, 1);
-		let twoNum = str.slice(1);
+	const tens = {
+		10: 'ten',
+		20: 'twenty',
+		30: 'thirty',
+		40: 'forty',
+		50: 'fifty',
+		60: 'sixty',
+		70: 'seventy',
+		80: 'eighty',
+		90: 'ninety',
+	};
+	const numStr = number.toString();
+	if (number === 0) {
+		return 'zero';
+	}
+	if (ones[number]) {
+		return ones[number];
+	}
+	if (teens[number]) {
+		return teens[number];
+	}
+	if (tens[number]) {
+		return tens[number];
+	}
+	if (numStr.length == 2 && numStr[0] > 1) {
+		return tens[numStr[0] * 10] + ' ' + ones[numStr[1]];
+	}
+	if (numStr.length == 3) {
+		const hundred = ones[numStr[0]] + ' hundred';
+		const twoNum = numStr.slice(1);
+		if (ones[number / 100]) {
+			return hundred;
+		}
 		if (twoNum < 10) {
-			return h[firstNum] + ' ' + o[twoNum];
+			return hundred + ' ' + ones[twoNum.replace(/^0+/, '')];
 		}
-		if (twoNum > 10 && twoNum < 20) {
-			return h[firstNum] + ' ' + p[twoNum];
+		if (teens[twoNum]) {
+			return hundred + ' ' + teens[twoNum];
 		}
-		if (twoNum >= 10) {
-			return h[firstNum] + ' ' + t[twoNum];
+		if (tens[twoNum]) {
+			return hundred + ' ' + tens[twoNum];
+		}
+		if (twoNum[0] > 1) {
+			return hundred + ' ' + tens[twoNum[0] * 10] + ' ' + ones[twoNum[1]];
 		}
 	}
-}
+};
